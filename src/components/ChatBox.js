@@ -8,7 +8,6 @@ const ChatBox = () => {
     const inputRef = useRef(null);
     const conversationBoxRef = useRef(null);
 
-
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
     };
@@ -56,8 +55,12 @@ const ChatBox = () => {
             <h1>AI Chat</h1>
             <div className="conversation-box" ref={conversationBoxRef}>
                 {conversation.map((message, index) => (
-                    <div key={index} className={`message ${message.sender}`}>
-                        {message.text}
+                    <div key={index} className={`message-container ${message.sender}`}>
+                        {message.sender === 'ai' && <div className="profile-icon ai">AI</div>}
+                        <div className={`message ${message.sender}`}>
+                            {message.text}
+                        </div>
+                        {message.sender === 'user' && <div className="profile-icon user">U</div>}
                     </div>
                 ))}
             </div>
