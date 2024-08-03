@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  UI:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  BFF:
+    build:
+      context: ../BFF
+    ports:
+      - "8090:8080"
+    networks:
+      - app-network
+
+  RAG:
+    build:
+      context: ../RAG
+    ports:
+      - "9000:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
