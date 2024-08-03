@@ -6,7 +6,8 @@ const ChatBox = () => {
     const [query, setQuery] = useState('');
     const [conversation, setConversation] = useState([]);
     const inputRef = useRef(null);
-    const conversationEndRef = useRef(null);
+    const conversationBoxRef = useRef(null);
+
 
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
@@ -16,38 +17,49 @@ const ChatBox = () => {
         if (!query.trim()) return;
 
         const userMessage = { sender: 'user', text: query };
+        setConversation((prevConversation) => [...prevConversation, userMessage]);
+
+        setQuery('');
+        inputRef.current.focus();
+
+        // Add a "typing..." message
         const typingMessage = { sender: 'ai', text: 'typing...' };
-        setConversation((prevConversation) => [...prevConversation, userMessage, typingMessage]);
-        // setConversation([...conversation, userMessage]);
+        setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
             const res = await axios.post('https://api.example.com/chat', { query });
             const aiMessage = { sender: 'ai', text: res.data.response };
-            setConversation([...conversation, userMessage, aiMessage]);
+            setConversation((prevConversation) =>
+                prevConversation.map((msg, index) =>
+                    index === prevConversation.length - 1 ? aiMessage : msg
+                )
+            );
         } catch (error) {
             console.error('Error fetching chat response:', error);
             const errorMessage = { sender: 'ai', text: 'Error fetching response. Please try again.' };
-            setConversation([...conversation, userMessage, errorMessage]);
+            setConversation((prevConversation) =>
+                prevConversation.map((msg, index) =>
+                    index === prevConversation.length - 1 ? errorMessage : msg
+                )
+            );
         }
-
-        setQuery('');
-        inputRef.current.focus();
     };
 
     useEffect(() => {
-        conversationEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (conversationBoxRef.current) {
+            conversationBoxRef.current.scrollTop = conversationBoxRef.current.scrollHeight;
+        }
     }, [conversation]);
 
     return (
         <div className="chat-box">
-            <h1>Chat with Credit Cards !</h1>
-            <div className="conversation-box">
+            <h1>AI Chat</h1>
+            <div className="conversation-box" ref={conversationBoxRef}>
                 {conversation.map((message, index) => (
                     <div key={index} className={`message ${message.sender}`}>
                         {message.text}
                     </div>
                 ))}
-                <div ref={conversationEndRef} />
             </div>
             <div className="chat-input-container">
                 <textarea
@@ -56,7 +68,20 @@ const ChatBox = () => {
                     onChange={handleQueryChange}
                     placeholder="Ask a question about credit cards..."
                 />
-                <button onClick={handleSend}>Send</button>
+                <button onClick={handleSend}>
+                    Send
+                    <span className="send-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            width="18px"
+                            height="18px"
+                        >
+                            <path d="M20.5 3h-17C2.67 3 2 3.67 2 4.5v15c0 .83.67 1.5 1.5 1.5h17c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5zM20 19H4V5h16v14zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-8h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z" />
+                        </svg>
+                    </span>
+                </button>
             </div>
         </div>
     );

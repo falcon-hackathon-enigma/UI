@@ -66,7 +66,7 @@ const LandingPage = () => {
         <div className="landing-page">
             <div className="header">
                 {/* {!aiMode && <h1>Credit Cards</h1>} */}
-                <h1>Credit Cards</h1>
+                <h1>Cards Genie</h1>
                 <div className="switch-container">
                     <label>AI Mode</label>
                     <div className={`toggle-switch ${aiMode ? 'active' : ''}`} onClick={handleSwitchChange}>

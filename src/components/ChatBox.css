@@ -1,6 +1,5 @@
 .chat-box {
-    padding: 100px;
-    padding-top: 110px;
+    padding: 20px;
     text-align: center;
     font-family: 'Arial', sans-serif;
     background-color: #1e1e1e;
@@ -14,6 +13,29 @@
     flex-direction: column;
     height: 80vh;
     /* Adjust height as needed */
+}
+
+@media (max-width: 768px) {
+    .chat-box {
+        padding: 10px;
+        height: 100vh;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .chat-box h1 {
+        font-size: 18px;
+    }
+
+    .chat-box textarea {
+        height: 80px;
+        font-size: 14px;
+    }
+
+    .chat-box button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
 
 .chat-box h1 {
@@ -94,7 +116,7 @@
     flex-direction: column;
     align-items: center;
     position: sticky;
-    bottom: 100;
+    bottom: 0;
     background-color: #1e1e1e;
     padding-top: 10px;
 }
@@ -123,12 +145,23 @@
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
     transition: background-color 0.3s ease;
+    display: inline-flex;
+    /* Changed from flex to inline-flex */
+    align-items: center;
+    /* Center the items vertically */
+    gap: 5px;
 }
 
 .chat-box button:hover {
     background-color: #0056b3;
+}
+
+.send-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
