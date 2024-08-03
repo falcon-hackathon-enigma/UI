@@ -65,6 +65,7 @@ const LandingPage = () => {
     return (
         <div className="landing-page">
             <div className="header">
+                {/* {!aiMode && <h1>Credit Cards</h1>} */}
                 <h1>Credit Cards</h1>
                 <div className="switch-container">
                     <label>AI Mode</label>

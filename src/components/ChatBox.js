@@ -16,7 +16,9 @@ const ChatBox = () => {
         if (!query.trim()) return;
 
         const userMessage = { sender: 'user', text: query };
-        setConversation([...conversation, userMessage]);
+        const typingMessage = { sender: 'ai', text: 'typing...' };
+        setConversation((prevConversation) => [...prevConversation, userMessage, typingMessage]);
+        // setConversation([...conversation, userMessage]);
 
         try {
             const res = await axios.post('https://api.example.com/chat', { query });
@@ -38,7 +40,7 @@ const ChatBox = () => {
 
     return (
         <div className="chat-box">
-            <h1>AI Chat</h1>
+            <h1>Chat with Credit Cards !</h1>
             <div className="conversation-box">
                 {conversation.map((message, index) => (
                     <div key={index} className={`message ${message.sender}`}>

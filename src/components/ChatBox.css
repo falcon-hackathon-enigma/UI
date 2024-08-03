@@ -1,11 +1,11 @@
 .chat-box {
-    padding: 32px;
-    text-align: center;
+    padding: 80px;
+    /* text-align: center; */
     font-family: 'Arial', sans-serif;
     background-color: #1e1e1e;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
     transition: all 0.3s ease;
     color: #ffffff;
@@ -16,8 +16,8 @@
 }
 
 .chat-box h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 22px;
+    margin-bottom: 2px;
     color: #ffffff;
 }
 
@@ -35,12 +35,15 @@
 }
 
 .message {
-    padding: 10px 15px;
-    border-radius: 20px;
-    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 75%;
     word-wrap: break-word;
     position: relative;
     display: inline-block;
+    animation: fadeIn 0.3s ease-in-out;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .message.user {
@@ -49,16 +52,16 @@
     align-self: flex-end;
     margin-left: auto;
     border-bottom-right-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message.ai {
-    background-color: #333;
+    background-color: #444;
     color: #ffffff;
     align-self: flex-start;
     margin-right: auto;
     border-bottom-left-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message::after {
@@ -70,18 +73,18 @@
 }
 
 .message.user::after {
-    border-width: 10px 0 10px 10px;
+    border-width: 8px 0 8px 8px;
     border-color: transparent transparent transparent #007bff;
     top: 50%;
-    right: -10px;
+    right: -8px;
     transform: translateY(-50%);
 }
 
 .message.ai::after {
-    border-width: 10px 10px 10px 0;
-    border-color: transparent #333 transparent transparent;
+    border-width: 8px 8px 8px 0;
+    border-color: transparent #444 transparent transparent;
     top: 50%;
-    left: -10px;
+    left: -8px;
     transform: translateY(-50%);
 }
 
