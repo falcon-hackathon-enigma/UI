@@ -226,7 +226,7 @@ body {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 400px) {
     .chat-box {
         width: 100vw;
         /* Use full viewport width */
