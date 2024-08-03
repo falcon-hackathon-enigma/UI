@@ -7,5 +7,4 @@ echo "Succesfully cloned RAG"
 
 cd UI
 docker-compose build
-sleep 180
 docker-compose up -d
