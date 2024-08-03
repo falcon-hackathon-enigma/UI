@@ -5,6 +5,8 @@
     background-color: #121212;
     color: #ffffff;
     min-height: 100vh;
+    padding-top: 110px;
+    /* Add padding to avoid content being hidden behind the fixed header */
 }
 
 .header {
@@ -13,6 +15,14 @@
     align-items: center;
     margin-bottom: 20px;
     padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #121212;
+    z-index: 1000;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .switch-container {
@@ -96,7 +106,7 @@
     position: relative;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    user-select: none;
+    /* user-select: none; */
     /* Prevent text selection */
 }
 
