@@ -12,6 +12,11 @@ chmod +x run.sh
 
 ./run.sh
 
+on succesfully execute run.sh, please check **docker ps** to check running docker containers.
+
+open UI on http://localhost:8080
+open BFF on http://localhost:3000
+
 **To stop services**
 
 docker-compose down
