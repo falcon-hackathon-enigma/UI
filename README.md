@@ -1,3 +1,23 @@
+How to RUN?
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+To Run services locally,
+
+Requirements : Docker, Docker compose and Git
+
+git clone https://github.com/falcon-hackathon-enigma/UI.git
+
+cd UI
+
+chmod +x run.sh
+
+./run.sh
+
+**To stop services**
+
+docker-compose down
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
