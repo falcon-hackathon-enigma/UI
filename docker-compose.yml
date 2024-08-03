@@ -16,13 +16,13 @@ services:
     networks:
       - app-network
 
-  RAG:
-    build:
-      context: ../RAG
-    ports:
-      - "9000:8080"
-    networks:
-      - app-network
+  #RAG:
+  #  build:
+  #    context: ../RAG
+  #  ports:
+  #    - "9000:8080"
+  #  networks:
+  #    - app-network
 
 networks:
   app-network:
