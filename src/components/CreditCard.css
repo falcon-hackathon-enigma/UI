@@ -1,0 +1,39 @@
+.card__title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.fw-light {
+    font-weight: 400 !important;
+}
+
+.credit-card {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+}
+
+.credit-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.credit-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.credit-card h3 {
+    font-size: 18px;
+    margin: 0;
+}
