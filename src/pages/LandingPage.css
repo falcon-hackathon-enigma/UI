@@ -11,6 +11,7 @@
     align-items: center;
 }
 
+/* Header styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -27,6 +28,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Switch container styles */
 .switch-container {
     display: flex;
     align-items: center;
@@ -38,6 +40,7 @@
     color: #ffffff;
 }
 
+/* About section styles */
 .about-section {
     background: url('../../public/ai.jpg') no-repeat center center/cover;
     padding: 100px 20px;
@@ -79,6 +82,7 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
+/* Button group styles */
 .button-group {
     display: flex;
     gap: 20px;
@@ -115,14 +119,16 @@
     transform: translateY(-2px);
 }
 
+/* Card container styles */
 .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
 }
 
+/* Load more button styles */
 .load-more-button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -142,6 +148,7 @@
     transform: translateY(-2px);
 }
 
+/* Compare button styles */
 .compare-button {
     position: fixed;
     top: 70px;
@@ -173,6 +180,7 @@
     fill: #ffffff;
 }
 
+/* Modal styles */
 .modal {
     position: absolute;
     top: 50%;
@@ -186,12 +194,35 @@
     max-width: 500px;
     width: 100%;
     max-height: 80vh;
-    /* Ensure the modal doesn't exceed the viewport height */
     overflow-y: auto;
-    /* Make the modal content scrollable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: #ffffff;
+}
+
+/* Dark scrollbar styles for the modal */
+.modal::-webkit-scrollbar {
+    width: 12px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+    border: 3px solid #2a2a2a;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+}
+
+.modal {
+    scrollbar-color: #555 #2a2a2a;
+    scrollbar-width: thin;
 }
 
 .overlay {
@@ -202,7 +233,6 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 1000;
-    /* Ensure the overlay is above other elements */
 }
 
 .modal img {
