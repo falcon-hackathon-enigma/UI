@@ -10,6 +10,7 @@ const LandingPage = () => {
     const [visibleCards, setVisibleCards] = useState(10);
     const [selectedCard, setSelectedCard] = useState(null);
     const [aiMode, setAiMode] = useState(false);
+    const [selectedForComparison, setSelectedForComparison] = useState([]);
     const cardSectionRef = useRef(null);
 
     useEffect(() => {
@@ -50,6 +51,24 @@ const LandingPage = () => {
         setVisibleCards((prevVisibleCards) => prevVisibleCards + 10);
     };
 
+    const handleCompareClick = () => {
+        if (selectedForComparison.length >= 2) {
+            setAiMode(true);
+        } else {
+            alert('Please select at least 2 credit cards to compare.');
+        }
+    };
+
+    const handleCardSelect = (card) => {
+        setSelectedForComparison((prevSelected) => {
+            if (prevSelected.includes(card)) {
+                return prevSelected.filter((c) => c !== card);
+            } else {
+                return [...prevSelected, card];
+            }
+        });
+    };
+
     return (
         <div className="landing-page">
             <div className="header">
@@ -73,13 +92,27 @@ const LandingPage = () => {
                     </div>
                 </div>
             )}
+            {!aiMode && selectedForComparison.length > 0 && (
+                <button className="compare-button" onClick={handleCompareClick}>
+                    Compare Selected Cards
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px" height="18px">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg>
+                </button>
+            )}
             {aiMode ? (
-                <ChatBox />
+                <ChatBox initialMessage="Comparing selected credit cards" selectedCards={selectedForComparison} />
             ) : (
                 <>
                     <div className="card-container" ref={cardSectionRef}>
                         {cards.slice(0, visibleCards).map((card) => (
-                            <CreditCard key={card.id} card={card} onClick={handleCardClick} />
+                            <CreditCard
+                                key={card.id}
+                                card={card}
+                                onClick={handleCardClick}
+                                onSelect={handleCardSelect}
+                                isSelected={selectedForComparison.includes(card)}
+                            />
                         ))}
                     </div>
                     {visibleCards < cards.length && (
