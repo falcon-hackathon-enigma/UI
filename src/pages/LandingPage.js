@@ -7,7 +7,7 @@ import './LandingPage.css';
 
 const LandingPage = () => {
     const [cards, setCards] = useState([]);
-    const [visibleCards, setVisibleCards] = useState(10);
+    const [visibleCards, setVisibleCards] = useState(8);
     const [selectedCard, setSelectedCard] = useState(null);
     const [aiMode, setAiMode] = useState(false);
     const [selectedForComparison, setSelectedForComparison] = useState([]);
