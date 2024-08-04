@@ -41,6 +41,7 @@ const LandingPage = () => {
         setAiMode(!aiMode);
         setInitialMessage('');
         setConversation([]);
+        setSelectedForComparison([]); // Clear selected cards when toggling AI mode
     };
 
     const scrollToCards = () => {
@@ -54,7 +55,7 @@ const LandingPage = () => {
     };
 
     const loadMoreCards = () => {
-        setVisibleCards((prevVisibleCards) => prevVisibleCards + 10);
+        setVisibleCards((prevVisibleCards) => prevVisibleCards + 8);
     };
 
     const handleCompareClick = async () => {
