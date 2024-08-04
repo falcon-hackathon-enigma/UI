@@ -1,3 +1,4 @@
+/* General styles for the landing page */
 .landing-page {
     padding: 32px;
     text-align: center;
@@ -198,6 +199,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: #ffffff;
+    border: 1px solid #000;
+    /* Ensure the border is black */
 }
 
 /* Dark scrollbar styles for the modal */

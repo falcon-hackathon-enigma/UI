@@ -18,7 +18,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await axios.get('http://cardgenie.ae:3000/api/cards');
+                const response = await axios.get('https://cardgenie.ae:8443/api/cards');
                 setCards(response.data);
             } catch (error) {
                 console.error('Error fetching credit card data:', error);
@@ -68,7 +68,7 @@ const LandingPage = () => {
             setConversation((prevConversation) => [...prevConversation, { sender: 'ai', text: 'typing...' }]);
 
             try {
-                const response = await fetch('http://cardgenie.ae:3000/api/chat', {
+                const response = await fetch('https://cardgenie.ae:8443/api/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

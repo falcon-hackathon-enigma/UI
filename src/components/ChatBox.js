@@ -35,7 +35,7 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
         setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
-            const response = await fetch('http://cardgenie.ae:3000/api/chat', {
+            const response = await fetch('https://cardgenie.ae:8443/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
