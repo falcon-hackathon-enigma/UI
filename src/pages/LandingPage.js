@@ -13,6 +13,7 @@ const LandingPage = () => {
     const [selectedForComparison, setSelectedForComparison] = useState([]);
     const [initialMessage, setInitialMessage] = useState('');
     const [conversation, setConversation] = useState([]);
+    const [compareLoading, setCompareLoading] = useState(false);
     const cardSectionRef = useRef(null);
 
     useEffect(() => {
@@ -60,6 +61,7 @@ const LandingPage = () => {
 
     const handleCompareClick = async () => {
         if (selectedForComparison.length >= 2) {
+            setCompareLoading(true); // Set loading to true
             setAiMode(true);
             const compareMessage = `Comparing the following credit cards: ${selectedForComparison.map(card => card.cardName).join(', ')}`;
             setConversation([{ sender: 'user', text: compareMessage }]);
@@ -113,6 +115,8 @@ const LandingPage = () => {
                     const updatedConversation = prevConversation.slice(0, -1);
                     return [...updatedConversation, { sender: 'ai', text: 'Error fetching response. Please try again.' }];
                 });
+            } finally {
+                setCompareLoading(false); // Set loading to false
             }
         } else {
             alert('Please select at least 2 credit cards to compare.');
@@ -153,11 +157,17 @@ const LandingPage = () => {
                 </div>
             )}
             {!aiMode && selectedForComparison.length > 0 && (
-                <button className="compare-button" onClick={handleCompareClick}>
-                    Compare Selected Cards
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px" height="18px">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                    </svg>
+                <button className="compare-button" onClick={handleCompareClick} disabled={compareLoading}>
+                    {compareLoading ? (
+                        <span className="loading-spinner"></span>
+                    ) : (
+                        <>
+                            Compare Selected Cards
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18px" height="18px">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                            </svg>
+                        </>
+                    )}
                 </button>
             )}
             {aiMode ? (

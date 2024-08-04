@@ -5,6 +5,7 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
     const [query, setQuery] = useState('');
     const inputRef = useRef(null);
     const conversationBoxRef = useRef(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (initialMessage) {
@@ -23,6 +24,8 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
 
     const handleSend = async (message) => {
         if (!message.trim()) return;
+
+        setLoading(true); // Set loading to true
 
         const userMessage = { sender: 'user', text: message };
         setConversation((prevConversation) => [...prevConversation, userMessage]);
@@ -80,6 +83,8 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
                 const updatedConversation = prevConversation.slice(0, -1);
                 return [...updatedConversation, errorMessage];
             });
+        } finally {
+            setLoading(false); // Set loading to false
         }
     };
 
@@ -91,7 +96,7 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
 
     return (
         <div className="chat-box">
-            <h1>AI Chat</h1>
+            <h1>Ask Genie</h1>
             <div className="conversation-box" ref={conversationBoxRef}>
                 {initialConversation.map((message, index) => (
                     <div key={index} className={`message-container ${message.sender}`}>
@@ -110,19 +115,25 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
                     onChange={handleQueryChange}
                     placeholder="Ask a question about credit cards..."
                 />
-                <button onClick={() => handleSend(query)}>
-                    Send
-                    <span className="send-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            width="18px"
-                            height="18px"
-                        >
-                            <path d="M20.5 3h-17C2.67 3 2 3.67 2 4.5v15c0 .83.67 1.5 1.5 1.5h17c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5zM20 19H4V5h16v14zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-8h2v2h-2V7zm0 4h2v2h-2V7zm0 4h2v2h-2v-2z" />
-                        </svg>
-                    </span>
+                <button onClick={() => handleSend(query)} disabled={loading}>
+                    {loading ? (
+                        <span className="loading-spinner"></span>
+                    ) : (
+                        <>
+                            Send
+                            <span className="send-icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    width="18px"
+                                    height="18px"
+                                >
+                                    <path d="M20.5 3h-17C2.67 3 2 3.67 2 4.5v15c0 .83.67 1.5 1.5 1.5h17c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5zM20 19H4V5h16v14zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm4-8h2v2h-2V7zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2zm4-8h2v2h-2V7zm0 4h2v2h-2V7zm0 4h2v2h-2v-2z" />
+                                </svg>
+                            </span>
+                        </>
+                    )}
                 </button>
             </div>
         </div>
