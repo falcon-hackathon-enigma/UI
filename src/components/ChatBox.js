@@ -2,10 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './ChatBox.css';
 
-const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversation }) => {
+const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversation, setConversation }) => {
     const [query, setQuery] = useState('');
-    const [conversation, setConversation] = useState(initialConversation || []);
-    const inputRef = useRef(null);
+    const inputRef = useRef(null); // Define inputRef
     const conversationBoxRef = useRef(null);
 
     useEffect(() => {
@@ -17,7 +16,7 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
             const aiMessage = { sender: 'ai', text: compareMessage };
             setConversation((prevConversation) => [...prevConversation, aiMessage]);
         }
-    }, [initialMessage, selectedCards]);
+    }, [initialMessage, selectedCards, setConversation]);
 
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
@@ -59,13 +58,13 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
         if (conversationBoxRef.current) {
             conversationBoxRef.current.scrollTop = conversationBoxRef.current.scrollHeight;
         }
-    }, [conversation]);
+    }, [initialConversation]); // Ensure conversation is used correctly
 
     return (
         <div className="chat-box">
             <h1>AI Chat</h1>
             <div className="conversation-box" ref={conversationBoxRef}>
-                {conversation.map((message, index) => (
+                {initialConversation.map((message, index) => (
                     <div key={index} className={`message-container ${message.sender}`}>
                         {message.sender === 'ai' && <div className="profile-icon ai">AI</div>}
                         <div className={`message ${message.sender}`}>

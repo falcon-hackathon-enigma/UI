@@ -40,7 +40,7 @@ const LandingPage = () => {
         e.preventDefault();
         setAiMode(!aiMode);
         setInitialMessage('');
-        setConversation([]); // Clear conversation when toggling AI mode
+        setConversation([]);
     };
 
     const scrollToCards = () => {
@@ -50,7 +50,7 @@ const LandingPage = () => {
     const switchToAiMode = () => {
         setAiMode(true);
         setInitialMessage('');
-        setConversation([]); // Clear conversation when switching to AI mode
+        setConversation([]);
     };
 
     const loadMoreCards = () => {
@@ -68,7 +68,7 @@ const LandingPage = () => {
 
             try {
                 const res = await axios.post('http://cardgenie.ae:3000/api/chat', { msg: compareMessage });
-                console.log(res.data);
+                console.log('API Response:', res.data); // Log the API response
                 setConversation((prevConversation) => {
                     // Remove the "typing..." message and add the actual response
                     const updatedConversation = prevConversation.slice(0, -1);
@@ -129,7 +129,7 @@ const LandingPage = () => {
                 </button>
             )}
             {aiMode ? (
-                <ChatBox initialMessage={initialMessage} selectedCards={selectedForComparison} conversation={conversation} />
+                <ChatBox initialMessage={initialMessage} selectedCards={selectedForComparison} conversation={conversation} setConversation={setConversation} />
             ) : (
                 <>
                     <div className="card-container" ref={cardSectionRef}>
