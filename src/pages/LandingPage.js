@@ -16,7 +16,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await axios.get('http://52.5.66.129:3000/api/cards');
+                const response = await axios.get('http://cardgenie.ae:3000/api/chat');
                 setCards(response.data);
             } catch (error) {
                 console.error('Error fetching credit card data:', error);

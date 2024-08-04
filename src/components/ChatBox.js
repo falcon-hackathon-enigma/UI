@@ -37,7 +37,7 @@ const ChatBox = ({ initialMessage, selectedCards }) => {
         setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
-            const res = await axios.post('http://52.5.66.129:3000/api/chat', { msg: message });
+            const res = await axios.post('http://cardgenie.ae:3000/api/chat', { msg: message });
             const aiMessage = { sender: 'ai', text: res.data };
             setConversation((prevConversation) =>
                 prevConversation.map((msg, index) =>
