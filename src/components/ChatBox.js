@@ -26,8 +26,9 @@ const ChatBox = () => {
         setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
-            const res = await axios.post('https://api.example.com/chat', { query });
-            const aiMessage = { sender: 'ai', text: res.data.response };
+            const res = await axios.post('http://52.5.66.129:3000/api/chat', { msg: query });
+            console.log(res);
+            const aiMessage = { sender: 'ai', text: res.data };
             setConversation((prevConversation) =>
                 prevConversation.map((msg, index) =>
                     index === prevConversation.length - 1 ? aiMessage : msg
