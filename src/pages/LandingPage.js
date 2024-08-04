@@ -144,7 +144,7 @@ const LandingPage = () => {
                 <div className="about-section">
                     <div className="about-content">
                         <h2>Welcome to Card Genie</h2>
-                        <p>Your ultimate destination for finding the perfect credit card tailored to your needs. Explore our AI-powered recommendations and make informed decisions effortlessly.</p>
+                        <p>Your ultimate destination for finding the perfect credit card tailored to your needs. Explore our AI-powered recommendations and make informed decisions effortlessly.Click on Ask AI for more.</p>
                         <div className="button-group">
                             <button className="scroll-button" onClick={scrollToCards}>Explore Credit Cards</button>
                             <button className="ai-button" onClick={switchToAiMode}>Ask AI</button>
@@ -194,7 +194,7 @@ const LandingPage = () => {
                     <p>{selectedCard.summary}</p>
                     <div className="card-details">
                         <h3>Details</h3>
-                        <div dangerouslySetInnerHTML={{ __html: selectedCard.details }} />
+                        <div dangerouslySetInnerHTML={{ __html: `<div class='modal-body p-lg-45 p-md-4'><div class='fs-12 fw-semibold mb-3'> Marriott Bonvoy Elite Status</div><h3 class='fw-light'>Get automatic Gold Elite status and a fast track to Platinum Elite status</h3><p class='fs-18 fw-light'></p><p><strong>Marriott Bonvoy Gold Elite status</strong></p><p>Enjoy complimentary Gold Elite status and benefits:</p><ul><li>25% bonus points on stays</li><li>Enhanced room upgrade</li><li>2PM late checkout</li></ul><p><strong>Marriott Bonvoy Platinum Elite status</strong></p><p>Unlock next-level benefits when you spend US$100,000 annually on your card. Benefits include:</p><ul><li>50% bonus points on stays</li><li>Enhanced room upgrade</li><li>4PM late checkout</li><li>Choice of welcome gift</li></ul></div>` }} />
                     </div>
                     <button onClick={closeModal}>Close</button>
                 </Modal>
