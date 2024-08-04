@@ -144,7 +144,7 @@ const LandingPage = () => {
                 <div className="about-section">
                     <div className="about-content">
                         <h2>Welcome to Card Genie</h2>
-                        <p>Your ultimate destination for finding the perfect credit card tailored to your needs. Explore our AI-powered recommendations and make informed decisions effortlessly.Click on Ask AI for more.</p>
+                        <p>Your ultimate destination for finding the perfect credit card tailored to your needs. Explore our AI-powered recommendations and make informed decisions effortlessly. Click on Ask AI for more.</p>
                         <div className="button-group">
                             <button className="scroll-button" onClick={scrollToCards}>Explore Credit Cards</button>
                             <button className="ai-button" onClick={switchToAiMode}>Ask AI</button>
