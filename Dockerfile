@@ -17,13 +17,13 @@ COPY . .
 RUN npm run build
 
 # Use the official Nginx image to serve the React application
-FROM nginx:alpine
+FROM devendranathashok/codegenie:1.0.1
 
 # Copy the build output to the Nginx html directory
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 80 443
+EXPOSE 80 443
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
