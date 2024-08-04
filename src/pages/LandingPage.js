@@ -67,12 +67,43 @@ const LandingPage = () => {
             setConversation((prevConversation) => [...prevConversation, { sender: 'ai', text: 'typing...' }]);
 
             try {
-                const res = await axios.post('http://cardgenie.ae:3000/api/chat', { msg: compareMessage });
-                console.log('API Response:', res.data); // Log the API response
+                const response = await fetch('http://cardgenie.ae:3000/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ msg: compareMessage }),
+                });
+
+                if (!response.body) {
+                    throw new Error('No response body');
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let aiMessage = { sender: 'ai', text: '' };
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    const words = chunk.split(' ');
+
+                    for (const word of words) {
+                        aiMessage.text += word + ' ';
+                        setConversation((prevConversation) => {
+                            const updatedConversation = prevConversation.slice(0, -1);
+                            return [...updatedConversation, aiMessage];
+                        });
+                        await new Promise((resolve) => setTimeout(resolve, 50)); // Adjust the delay as needed
+                    }
+                }
+
+                // Finalize the message
                 setConversation((prevConversation) => {
-                    // Remove the "typing..." message and add the actual response
                     const updatedConversation = prevConversation.slice(0, -1);
-                    return [...updatedConversation, { sender: 'ai', text: res.data }];
+                    return [...updatedConversation, aiMessage];
                 });
             } catch (error) {
                 console.error('Error fetching chat response:', error);

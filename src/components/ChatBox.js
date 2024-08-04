@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
 import './ChatBox.css';
 
 const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversation, setConversation }) => {
     const [query, setQuery] = useState('');
-    const inputRef = useRef(null); // Define inputRef
+    const inputRef = useRef(null);
     const conversationBoxRef = useRef(null);
 
     useEffect(() => {
@@ -36,10 +35,41 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
         setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
-            const res = await axios.post('http://cardgenie.ae:3000/api/chat', { msg: message });
-            const aiMessage = { sender: 'ai', text: res.data };
+            const response = await fetch('http://cardgenie.ae:3000/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ msg: message }),
+            });
+
+            if (!response.body) {
+                throw new Error('No response body');
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let aiMessage = { sender: 'ai', text: '' };
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                const words = chunk.split(' ');
+
+                for (const word of words) {
+                    aiMessage.text += word + ' ';
+                    setConversation((prevConversation) => {
+                        const updatedConversation = prevConversation.slice(0, -1);
+                        return [...updatedConversation, aiMessage];
+                    });
+                    await new Promise((resolve) => setTimeout(resolve, 50)); // Adjust the delay as needed
+                }
+            }
+
+            // Finalize the message
             setConversation((prevConversation) => {
-                // Remove the "typing..." message and add the actual response
                 const updatedConversation = prevConversation.slice(0, -1);
                 return [...updatedConversation, aiMessage];
             });
@@ -47,7 +77,6 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
             console.error('Error fetching chat response:', error);
             const errorMessage = { sender: 'ai', text: 'Error fetching response. Please try again.' };
             setConversation((prevConversation) => {
-                // Remove the "typing..." message and add the error message
                 const updatedConversation = prevConversation.slice(0, -1);
                 return [...updatedConversation, errorMessage];
             });
@@ -58,7 +87,7 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
         if (conversationBoxRef.current) {
             conversationBoxRef.current.scrollTop = conversationBoxRef.current.scrollHeight;
         }
-    }, [initialConversation]); // Ensure conversation is used correctly
+    }, [initialConversation]);
 
     return (
         <div className="chat-box">
