@@ -11,6 +11,7 @@
     align-items: center;
 }
 
+/* Header styles */
 .header {
     display: flex;
     justify-content: space-between;
@@ -27,6 +28,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Switch container styles */
 .switch-container {
     display: flex;
     align-items: center;
@@ -38,6 +40,7 @@
     color: #ffffff;
 }
 
+/* About section styles */
 .about-section {
     background: url('../../public/ai.jpg') no-repeat center center/cover;
     padding: 100px 20px;
@@ -79,6 +82,7 @@
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
+/* Button group styles */
 .button-group {
     display: flex;
     gap: 20px;
@@ -115,14 +119,16 @@
     transform: translateY(-2px);
 }
 
+/* Card container styles */
 .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
 }
 
+/* Load more button styles */
 .load-more-button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -142,6 +148,7 @@
     transform: translateY(-2px);
 }
 
+/* Compare button styles */
 .compare-button {
     position: fixed;
     top: 70px;
@@ -173,6 +180,7 @@
     fill: #ffffff;
 }
 
+/* Modal styles */
 .modal {
     position: absolute;
     top: 50%;
@@ -186,12 +194,35 @@
     max-width: 500px;
     width: 100%;
     max-height: 80vh;
-    /* Ensure the modal doesn't exceed the viewport height */
     overflow-y: auto;
-    /* Make the modal content scrollable */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: #ffffff;
+}
+
+/* Dark scrollbar styles for the modal */
+.modal::-webkit-scrollbar {
+    width: 12px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 10px;
+    border: 3px solid #2a2a2a;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
+}
+
+.modal {
+    scrollbar-color: #555 #2a2a2a;
+    scrollbar-width: thin;
 }
 
 .overlay {
@@ -202,7 +233,6 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 1000;
-    /* Ensure the overlay is above other elements */
 }
 
 .modal img {
@@ -223,14 +253,67 @@
 .modal .card-details {
     text-align: left;
     margin-top: 20px;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal .card-details:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .modal .card-details h3 {
     margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #00d4ff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+    border-bottom: 2px solid #00d4ff;
+    padding-bottom: 5px;
 }
 
 .modal .card-details p {
-    margin: 0;
+    margin: 10px 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.modal .card-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.modal .card-details ul li {
+    margin: 5px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.modal .card-details ul li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: #00d4ff;
+    font-size: 1.2rem;
+}
+
+.modal .card-details a {
+    color: #00d4ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.modal .card-details a:hover {
+    color: #00a3cc;
+    text-decoration: underline;
 }
 
 .modal button {
