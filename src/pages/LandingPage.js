@@ -11,6 +11,8 @@ const LandingPage = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [aiMode, setAiMode] = useState(false);
     const [selectedForComparison, setSelectedForComparison] = useState([]);
+    const [initialMessage, setInitialMessage] = useState('');
+    const [conversation, setConversation] = useState([]);
     const cardSectionRef = useRef(null);
 
     useEffect(() => {
@@ -37,6 +39,8 @@ const LandingPage = () => {
     const handleSwitchChange = (e) => {
         e.preventDefault();
         setAiMode(!aiMode);
+        setInitialMessage('');
+        setConversation([]); // Clear conversation when toggling AI mode
     };
 
     const scrollToCards = () => {
@@ -45,15 +49,39 @@ const LandingPage = () => {
 
     const switchToAiMode = () => {
         setAiMode(true);
+        setInitialMessage('');
+        setConversation([]); // Clear conversation when switching to AI mode
     };
 
     const loadMoreCards = () => {
         setVisibleCards((prevVisibleCards) => prevVisibleCards + 10);
     };
 
-    const handleCompareClick = () => {
+    const handleCompareClick = async () => {
         if (selectedForComparison.length >= 2) {
             setAiMode(true);
+            const compareMessage = `Comparing the following credit cards: ${selectedForComparison.map(card => card.cardName).join(', ')}`;
+            setConversation([{ sender: 'user', text: compareMessage }]);
+
+            // Add "typing..." effect
+            setConversation((prevConversation) => [...prevConversation, { sender: 'ai', text: 'typing...' }]);
+
+            try {
+                const res = await axios.post('http://cardgenie.ae:3000/api/chat', { msg: compareMessage });
+                console.log(res.data);
+                setConversation((prevConversation) => {
+                    // Remove the "typing..." message and add the actual response
+                    const updatedConversation = prevConversation.slice(0, -1);
+                    return [...updatedConversation, { sender: 'ai', text: res.data }];
+                });
+            } catch (error) {
+                console.error('Error fetching chat response:', error);
+                setConversation((prevConversation) => {
+                    // Remove the "typing..." message and add the error message
+                    const updatedConversation = prevConversation.slice(0, -1);
+                    return [...updatedConversation, { sender: 'ai', text: 'Error fetching response. Please try again.' }];
+                });
+            }
         } else {
             alert('Please select at least 2 credit cards to compare.');
         }
@@ -101,7 +129,7 @@ const LandingPage = () => {
                 </button>
             )}
             {aiMode ? (
-                <ChatBox initialMessage="Comparing selected credit cards" selectedCards={selectedForComparison} />
+                <ChatBox initialMessage={initialMessage} selectedCards={selectedForComparison} conversation={conversation} />
             ) : (
                 <>
                     <div className="card-container" ref={cardSectionRef}>
@@ -134,7 +162,7 @@ const LandingPage = () => {
                     <p>{selectedCard.summary}</p>
                     <div className="card-details">
                         <h3>Details</h3>
-                        <p>{selectedCard.details}</p>
+                        <div dangerouslySetInnerHTML={{ __html: selectedCard.details }} />
                     </div>
                     <button onClick={closeModal}>Close</button>
                 </Modal>
