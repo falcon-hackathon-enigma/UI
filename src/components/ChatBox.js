@@ -2,20 +2,31 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './ChatBox.css';
 
-const ChatBox = () => {
+const ChatBox = ({ initialMessage, selectedCards }) => {
     const [query, setQuery] = useState('');
     const [conversation, setConversation] = useState([]);
     const inputRef = useRef(null);
     const conversationBoxRef = useRef(null);
 
+    useEffect(() => {
+        if (initialMessage) {
+            const userMessage = { sender: 'user', text: initialMessage };
+            setConversation((prevConversation) => [...prevConversation, userMessage]);
+
+            const compareMessage = `Comparing the following credit cards: ${selectedCards.map(card => card.cardName).join(', ')}`;
+            const aiMessage = { sender: 'ai', text: compareMessage };
+            setConversation((prevConversation) => [...prevConversation, aiMessage]);
+        }
+    }, [initialMessage, selectedCards]);
+
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
     };
 
-    const handleSend = async () => {
-        if (!query.trim()) return;
+    const handleSend = async (message) => {
+        if (!message.trim()) return;
 
-        const userMessage = { sender: 'user', text: query };
+        const userMessage = { sender: 'user', text: message };
         setConversation((prevConversation) => [...prevConversation, userMessage]);
 
         setQuery('');
@@ -26,8 +37,8 @@ const ChatBox = () => {
         setConversation((prevConversation) => [...prevConversation, typingMessage]);
 
         try {
-            const res = await axios.post('https://api.example.com/chat', { query });
-            const aiMessage = { sender: 'ai', text: res.data.response };
+            const res = await axios.post('http://52.5.66.129:3000/api/chat', { msg: message });
+            const aiMessage = { sender: 'ai', text: res.data };
             setConversation((prevConversation) =>
                 prevConversation.map((msg, index) =>
                     index === prevConversation.length - 1 ? aiMessage : msg
@@ -71,7 +82,7 @@ const ChatBox = () => {
                     onChange={handleQueryChange}
                     placeholder="Ask a question about credit cards..."
                 />
-                <button onClick={handleSend}>
+                <button onClick={() => handleSend(query)}>
                     Send
                     <span className="send-icon">
                         <svg
