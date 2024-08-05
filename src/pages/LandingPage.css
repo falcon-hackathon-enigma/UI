@@ -18,15 +18,39 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    padding: 0 20px;
+    padding: 10px 20px;
+    /* Add padding to the top and bottom */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     background-color: #121212;
     z-index: 1000;
-    height: 60px;
+    height: 70px;
+    /* Adjust height to accommodate padding */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.header .logo {
+    height: 50px;
+    /* Adjust the height as needed */
+    max-height: 100%;
+    /* Ensure the logo does not exceed the header height */
+    margin-right: 1px;
+    /* Add some margin for spacing */
+    object-fit: contain;
+    /* Ensure the logo maintains its aspect ratio */
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 /* Switch container styles */
@@ -200,6 +224,7 @@
     text-align: center;
     color: #ffffff;
     border: 1px solid #000;
+    outline: none;
     /* Ensure the border is black */
 }
 

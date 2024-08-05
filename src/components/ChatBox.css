@@ -97,10 +97,22 @@ body {
     justify-content: center;
     font-weight: bold;
     margin: 0 10px;
+    font-size: 18px;
+    /* Adjust font size for emoji */
 }
 
 .profile-icon.ai {
     background-color: #444;
+}
+
+.profile-icon.user::before {
+    content: '⛄️';
+    /* Person emoji */
+}
+
+.profile-icon.ai::before {
+    content: '🧞‍♂️';
+    /* Genie emoji */
 }
 
 .message {

@@ -100,11 +100,11 @@ const ChatBox = ({ initialMessage, selectedCards, conversation: initialConversat
             <div className="conversation-box" ref={conversationBoxRef}>
                 {initialConversation.map((message, index) => (
                     <div key={index} className={`message-container ${message.sender}`}>
-                        {message.sender === 'ai' && <div className="profile-icon ai">AI</div>}
+                        {message.sender === 'ai' && <div className="profile-icon ai"></div>}
                         <div className={`message ${message.sender}`}>
                             {message.text}
                         </div>
-                        {message.sender === 'user' && <div className="profile-icon user">U</div>}
+                        {message.sender === 'user' && <div className="profile-icon user"></div>}
                     </div>
                 ))}
             </div>
