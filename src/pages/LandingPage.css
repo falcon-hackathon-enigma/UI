@@ -182,7 +182,8 @@
     padding: 10px 20px;
     font-size: 1rem;
     color: #ffffff;
-    background-color: #444;
+    background-color: #00d4ff;
+    /* Light blue background */
     border: none;
     border-radius: 5px;
     cursor: pointer;
