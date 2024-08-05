@@ -106,12 +106,12 @@ body {
 }
 
 .profile-icon.user::before {
-    content: '⛄️';
+    content: 'U';
     /* Person emoji */
 }
 
 .profile-icon.ai::before {
-    content: '🧞‍♂️';
+    content: 'AI';
     /* Genie emoji */
 }
 
